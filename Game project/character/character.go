@@ -1,15 +1,17 @@
 package character
 
 import (
+	"fmt"
 	"main/coordinates"
 	"main/entity"
+	"main/story"
 	"main/weapon"
 )
 
-type Character struct {
+type Character struct { //Die Player Klasse
 	entity.Entity
-	equippedWeapon *weapon.Weapon
-	position       *coordinates.Coordinate
+	equippedWeapon *weapon.Weapon          //Adresse zur verwendeten Waffe (unbenutzt)
+	position       *coordinates.Coordinate //Position des Spielers
 }
 
 func (character *Character) GetEquippedWeapon() *weapon.Weapon {
@@ -20,26 +22,30 @@ func (character *Character) SetEquippedWeapon(equippedWeapon *weapon.Weapon) {
 	character.equippedWeapon = equippedWeapon
 }
 
-func NewCharacter(PosX int, PosY int) *Character {
+func NewCharacter(PosX int, PosY int) *Character { //Erstellt eine neue Spieler-Instanz
 	var c *Character = new(Character)
-	//var inputString string
+	var inputString string
 	c.SetAc(10)
-	c.SetHp(20)
+	c.SetHp(20) //placeholder oder einfach Grundwerte
 	c.SetBaseWeapon("Fists")
 	c.SetBasedmg(3)
 	c.position = coordinates.NewCoordinate(PosX, PosY)
-	//fmt.Println("Please input your character's name:")
-	//fmt.Scan(&inputString)
-	//c.SetName(inputString)
-	c.SetName("placeholder")
+
+	if story.GetPlayerStoryName() != "" { //Wenn der Spieler die Story überspringt, wird nach eine Name gefragt
+		c.SetName(story.GetPlayerStoryName())
+	} else {
+		fmt.Println("Please input your character's name:")
+		fmt.Scan(&inputString)
+		c.SetName(inputString)
+	}
 	return c
 }
 
-func (character *Character) AssignNewShortsword() {
+func (character *Character) AssignNewShortsword() { //Erstellt einen neuen Shortsword für den Spieler (unbenutzt)
 	character.SetEquippedWeapon(weapon.NewShortsword())
 }
 
-func (character *Character) GetEffectiveDamage() int {
+func (character *Character) GetEffectiveDamage() int { //Die Summe der Basis-Schaden, und den DMG-Bonus der Waffe
 	if character.equippedWeapon == nil {
 		return character.GetBasedmg()
 	} else {

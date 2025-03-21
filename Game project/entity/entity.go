@@ -1,6 +1,6 @@
 package entity
 
-type Entity struct {
+type Entity struct { //Von Hanna erstellte Basis für Lebewesen (meist unbenutzt, außer für den Spieler. Da wird nur die Name benutzt)
 	hp         int
 	basedmg    int
 	ac         int

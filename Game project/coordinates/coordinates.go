@@ -1,6 +1,6 @@
 package coordinates
 
-type Coordinate struct {
+type Coordinate struct { //Jede Position auf der Karte ist ein Objekt, der einen Koordinatenwert sowie Eigenschaften besitzt
 	x int
 	y int
 }
@@ -28,8 +28,4 @@ func NewCoordinate(xCord int, yCord int) *Coordinate {
 	c.SetX(xCord)
 	c.SetY(yCord)
 	return c
-}
-
-func NewMap() {
-
 }
