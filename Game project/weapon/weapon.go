@@ -1,4 +1,4 @@
-package weapon
+package weapon //Von Hanna erstellt (unbenutzt)
 
 type Weapon struct {
 	wname string
